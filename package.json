@@ -1,0 +1,13 @@
+{
+  "name": "myredux",
+  "version": "1.0.0",
+  "description": "My simplified interpretation of Redux",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [
+    "javascript",
+    "redux"
+  ],
+  "author": "evgeniyPP <aysanru@gmail.com>",
+  "license": "ISC"
+}
