@@ -1,4 +1,5 @@
 const { createStore } = require('../index');
+const { thunkMiddleware } = require('../thunk');
 
 const initialState = {
   counter: 0
@@ -20,7 +21,14 @@ const reducer = (action, state) => {
 };
 
 const store = createStore(reducer, initialState);
+store.applyMiddleware(thunkMiddleware);
+
+const asyncIncrementActionCreator = () => {
+  return function(dispatch) {
+    setTimeout(() => dispatch({ type: 'INCREMENT' }), 2000);
+  };
+};
 
 console.log('before: ', store.getState()); // 0
-store.dispatch({ type: 'INCREMENT' });
-console.log('after: ', store.getState()); // 1
+store.dispatch(asyncIncrementActionCreator());
+setTimeout(() => console.log('after: ', store.getState()), 2000); // 1

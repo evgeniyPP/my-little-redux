@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "My simplified interpretation of Redux",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test_1": "node tests/1_counter.js",
+    "test_2": "node tests/2_async_counter.js"
+  },
   "keywords": [
     "javascript",
     "redux"

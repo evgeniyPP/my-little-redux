@@ -1,6 +1,7 @@
 function createStore(reducer, initialState) {
   let _state;
   const _listeners = [];
+  const _middlewares = [];
 
   const _isObject = value => {
     if (typeof value === 'object' && value !== null) {
@@ -18,6 +19,12 @@ function createStore(reducer, initialState) {
   };
 
   const dispatch = action => {
+    if (_middlewares.length) {
+      _middlewares.forEach(middleware => {
+        action = middleware(dispatch, action);
+      });
+    }
+
     const newState = reducer(action, _state);
 
     if (_isObject(newState)) {
@@ -37,6 +44,14 @@ function createStore(reducer, initialState) {
     return false;
   };
 
+  const applyMiddleware = middleware => {
+    if (typeof middleware === 'function') {
+      _middlewares.push(middleware);
+      return true;
+    }
+    return false;
+  };
+
   const getState = () => {
     return _state;
   };
@@ -46,6 +61,7 @@ function createStore(reducer, initialState) {
   return {
     dispatch,
     subscribe,
+    applyMiddleware,
     getState
   };
 }
