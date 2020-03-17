@@ -1,4 +1,4 @@
-export function createStore(reducer, initialState) {
+function createStore(reducer, initialState) {
   let _state;
   const _listeners = [];
 
@@ -18,7 +18,7 @@ export function createStore(reducer, initialState) {
   };
 
   const dispatch = action => {
-    const newState = reducer(action);
+    const newState = reducer(action, _state);
 
     if (_isObject(newState)) {
       _state = newState;
@@ -49,3 +49,5 @@ export function createStore(reducer, initialState) {
     getState
   };
 }
+
+module.exports = { createStore };
